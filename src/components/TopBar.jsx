@@ -9,6 +9,11 @@ export default function TopBar() {
           Instagram
         </Text>
       </View>
+      <View style={styles.addPost}>
+        <Text style={styles.addPostText}>
+          +
+        </Text>
+      </View>
     </View>
   );
 }
@@ -29,5 +34,13 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 32,
     fontWeight: 'bold',
+  },
+  addPost: {
+    position: 'absolute',
+    right: 30,
+    bottom: 20,
+  },
+  addPostText: {
+    fontSize: 32,
   },
 });

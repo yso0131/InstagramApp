@@ -54,7 +54,7 @@ export default function Post() {
           </View>
           <TouchableHighlight style={styles.accountName}>
             <Text style={styles.accountNameText}>
-              souchenmin
+              ABCkun
             </Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.accountEdit}>
