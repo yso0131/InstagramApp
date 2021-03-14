@@ -15,6 +15,7 @@ export default function TopBar() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'absolute',
     top: 30,
     width: '100%',
