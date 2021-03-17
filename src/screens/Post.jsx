@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableHighlight, ScrollView,
+  StyleSheet, Text, View, TouchableHighlight, ScrollView, Image,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
-export default function Post() {
+export default function Post({ pictures, text }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.accountContainer}>
@@ -25,9 +26,10 @@ export default function Post() {
           </TouchableHighlight>
         </View>
         <View>
-          <Text style={styles.pic}>
-            picture
-          </Text>
+          <Image
+            style={styles.pic}
+            source={{ uri: pictures }}
+          />
         </View>
         <View style={styles.content}>
           <View style={styles.contentAccount}>
@@ -37,7 +39,7 @@ export default function Post() {
           </View>
           <View style={styles.post}>
             <Text style={styles.postText}>
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+              {text}
             </Text>
           </View>
           <Text style={styles.dateText}>
@@ -64,9 +66,10 @@ export default function Post() {
           </TouchableHighlight>
         </View>
         <View>
-          <Text style={styles.pic}>
-            picture
-          </Text>
+          <Image
+            style={styles.pic}
+            source={{ uri: pictures }}
+          />
         </View>
         <View style={styles.content}>
           <View style={styles.contentAccount}>
@@ -76,8 +79,7 @@ export default function Post() {
           </View>
           <View style={styles.post}>
             <Text style={styles.postText}>
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBB
-              BBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+              {text}
             </Text>
           </View>
           <Text style={styles.dateText}>
@@ -88,6 +90,11 @@ export default function Post() {
     </ScrollView>
   );
 }
+
+Post.propTypes = {
+  pictures: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

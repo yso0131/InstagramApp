@@ -1,7 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, View, Image,
+} from 'react-native';
+import PropTypes from 'prop-types';
 
-export default function Mypage() {
+export default function Mypage({ pictures, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.account}>
@@ -20,9 +23,11 @@ export default function Mypage() {
       </View>
       <View>
         <View>
-          <Text style={styles.pic}>
-            picture
-          </Text>
+          <Image
+            style={styles.pic}
+            source={{ uri: pictures }}
+          />
+
         </View>
         <View style={styles.content}>
           <View style={styles.contentAccount}>
@@ -32,7 +37,7 @@ export default function Mypage() {
           </View>
           <View style={styles.post}>
             <Text style={styles.postText}>
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+              { text }
             </Text>
           </View>
           <Text style={styles.dateText}>
@@ -43,6 +48,11 @@ export default function Mypage() {
     </View>
   );
 }
+
+Mypage.propTypes = {
+  pictures: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
