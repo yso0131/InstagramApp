@@ -2,32 +2,30 @@ import React from 'react';
 import {
   StyleSheet, Text, View, Image,
 } from 'react-native';
-import PropTypes from 'prop-types';
 
-export default function Mypage({ pictures, text }) {
+export default function Account() {
   return (
     <View style={styles.container}>
       <View style={styles.account}>
-        <Text style={styles.accountName}>
-          souchenmin
-        </Text>
         <Text style={styles.accountPic}>
           ●
         </Text>
-        <View style={styles.accountDesc}>
-          <Text style={styles.accountDescText}>
-            26 years old
-            from japan
-          </Text>
-        </View>
+        <Text style={styles.accountName}>
+          souchenmin
+        </Text>
+      </View>
+      <View style={styles.accountDesc}>
+        <Text style={styles.accountDescText}>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua
+        </Text>
       </View>
       <View>
         <View>
           <Image
             style={styles.pic}
-            source={{ uri: pictures }}
+            source={{ uri: 'https://picsum.photos/200/300' }}
           />
-
         </View>
         <View style={styles.content}>
           <View style={styles.contentAccount}>
@@ -37,7 +35,8 @@ export default function Mypage({ pictures, text }) {
           </View>
           <View style={styles.post}>
             <Text style={styles.postText}>
-              { text }
+              Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua
             </Text>
           </View>
           <Text style={styles.dateText}>
@@ -49,31 +48,27 @@ export default function Mypage({ pictures, text }) {
   );
 }
 
-Mypage.propTypes = {
-  pictures: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    zIndex: 1,
-    margin: 100,
     width: '100%',
   },
   account: {
-    margin: 24,
-    alignItems: 'flex-start',
+    zIndex: 1,
+    margin: 10,
+    paddingBottom: 10,
+    flexDirection: 'row',
   },
   accountPic: {
-    fontSize: 70.0,
+    fontSize: 70,
   },
   accountName: {
     fontWeight: 'bold',
     fontSize: 24,
+    alignItems: 'flex-start',
   },
   accountDescText: {
-    marginTop: 5,
+    paddingBottom: 10,
   },
   content: {
     paddingVertical: 10,
@@ -92,6 +87,5 @@ const styles = StyleSheet.create({
   },
   pic: {
     height: 400,
-    backgroundColor: 'black',
   },
 });

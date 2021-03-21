@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableHighlight, ScrollView, Image,
+  StyleSheet, Text, View, TouchableOpacity, ScrollView, Image,
 } from 'react-native';
-import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Post({ pictures, text }) {
+export default function HomeScreen() {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       <View style={styles.accountContainer}>
@@ -14,32 +15,39 @@ export default function Post({ pictures, text }) {
               ●
             </Text>
           </View>
-          <TouchableHighlight style={styles.accountName}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Account')}
+            style={styles.accountName}
+          >
             <Text style={styles.accountNameText}>
               souchenmin
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.accountEdit}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.accountEdit}>
             <Text style={styles.accountEditName}>
               ・・・
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View>
           <Image
             style={styles.pic}
-            source={{ uri: pictures }}
+            source={{ uri: 'https://picsum.photos/200/300' }}
           />
         </View>
         <View style={styles.content}>
-          <View style={styles.contentAccount}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Account')}
+            style={styles.contentAccount}
+          >
             <Text style={styles.contentAccountText}>
               souchenmin
             </Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.post}>
             <Text style={styles.postText}>
-              {text}
+              Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua
             </Text>
           </View>
           <Text style={styles.dateText}>
@@ -54,32 +62,39 @@ export default function Post({ pictures, text }) {
               ●
             </Text>
           </View>
-          <TouchableHighlight style={styles.accountName}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Account')}
+            style={styles.accountName}
+          >
             <Text style={styles.accountNameText}>
               ABCkun
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.accountEdit}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.accountEdit}>
             <Text style={styles.accountEditName}>
               ・・・
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View>
           <Image
             style={styles.pic}
-            source={{ uri: pictures }}
+            source={{ uri: 'https://picsum.photos/200/300' }}
           />
         </View>
         <View style={styles.content}>
-          <View style={styles.contentAccount}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Account')}
+            style={styles.contentAccount}
+          >
             <Text style={styles.contentAccountText}>
               ABCkun
             </Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.post}>
             <Text style={styles.postText}>
-              {text}
+              Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua
             </Text>
           </View>
           <Text style={styles.dateText}>
@@ -91,14 +106,8 @@ export default function Post({ pictures, text }) {
   );
 }
 
-Post.propTypes = {
-  pictures: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
-
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
     width: '100%',
     flexGrow: 1,
     flex: 1,
@@ -129,7 +138,6 @@ const styles = StyleSheet.create({
   },
   pic: {
     height: 400,
-    backgroundColor: 'black',
   },
   content: {
     paddingVertical: 10,

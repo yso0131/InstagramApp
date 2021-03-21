@@ -1,34 +1,43 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import TopBar from './src/components/TopBar';
-import Post from './src/screens/Post';
-import Mypage from './src/screens/Mypage';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import firebase from 'firebase';
+import HomeScreen from './src/screens/HomeScreem';
+import Account from './src/screens/Account';
+import LoginScreen from './src/screens/LoginScreen';
+import SigninScreen from './src/screens/SigninScreen';
+
+const Stack = createStackNavigator();
+const firebaseConfig = {
+  apiKey: 'AIzaSyAtD4eByvMDUkyLrqb8RYltAsDZ1VC7MxY',
+  authDomain: 'instagramapp-8a984.firebaseapp.com',
+  projectId: 'instagramapp-8a984',
+  storageBucket: 'instagramapp-8a984.appspot.com',
+  messagingSenderId: '870360530155',
+  appId: '1:870360530155:web:9658b3e3efc3c2412592ae',
+};
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <TopBar />
-      <Post
-        pictures="https://picsum.photos/200/300"
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat."
-      />
-      {/* eslint-disable-next-line */}
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Signin"
+        screenOptions={{
+          headerStyle: { backgroundColor: 'papayawhip' },
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Instagram' }} />
+        <Stack.Screen name="Account" component={Account} options={{ title: 'Instagram' }} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Instagram' }} />
+        <Stack.Screen name="Signin" component={SigninScreen} options={{ title: 'Instagram' }} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 'auto',
-    marginBottom: 24,
-  },
-});
