@@ -1,41 +1,60 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet, View,
+  StyleSheet, View, Alert
 } from 'react-native';
 import { } from 'react-native-elements';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import firebase from 'firebase';
 import Button from '../components/Button';
 
-export default function LoginScreen() {
+export default function SigninScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function handlePress() {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const { user } = userCredential;
+        console.log(user.uid);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+        });
+      })
+      .catch((error) => {
+        Alert.alert(error.code);
+      });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.input}>
         <TextInput
+          style={styles.inputText}
           value={email}
           placeholder="Email       "
-          onChange={(text) => {
+          onChangeText={(text) => {
             setEmail(text);
           }}
         />
         <TextInput
+          style={styles.inputText}
           value={password}
           placeholder="Password"
           secureTextEntry
           keyboardType="default"
           textContentType="password"
-          onChange={(text) => {
+          onChangeText={(text) => {
             setPassword(text);
           }}
         />
       </View>
       <View style={styles.tapbar}>
         <Button
-          buttonName="SignIn"
-          onPress={() => navigation.navigate('Home')}
+          buttonName="Login"
+          onPress={handlePress}
         />
       </View>
     </View>
@@ -47,12 +66,21 @@ const styles = StyleSheet.create({
     padding: 5,
     flex: 1,
     position: 'absolute',
-    top: 70,
-    left: 150,
+    top: 90,
+    left: 100,
   },
   input: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%',
+    width: 250,
+    height: 50,
+  },
+  inputText: {
+    width: '100%',
+    fontSize: 24,
+    marginBottom: 5,
+  },
+  tapbar: {
+    marginTop: 10,
   },
 });
