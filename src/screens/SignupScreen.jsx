@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet, View, Alert
+  StyleSheet, View, Alert,
 } from 'react-native';
 import { } from 'react-native-elements';
 import { TextInput } from 'react-native-gesture-handler';

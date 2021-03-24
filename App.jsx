@@ -20,7 +20,7 @@ export default function App() {
       <Stack.Navigator
         initialRouteName="Signin"
         screenOptions={{
-          headerStyle: { backgroundColor: 'papayawhip' },
+          // headerStyle: { backgroundColor: 'papayawhip' },
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           gestureEnabled: true,
           gestureDirection: 'horizontal',

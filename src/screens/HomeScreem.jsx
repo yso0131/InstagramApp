@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, ScrollView, Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import SignoutScreen from '../components/SignoutScreen';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <SignoutScreen />,
+    });
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.accountContainer}>
