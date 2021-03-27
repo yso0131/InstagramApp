@@ -10,6 +10,18 @@ export default function HomeScreen() {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => <SignoutScreen />,
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{ marginLeft: 16 }}
+        >
+          <Text
+            style={styles.textButton}
+            onPress={(() => navigation.navigate('AddPost'))}
+          >
+            +
+          </Text>
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -118,6 +130,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexGrow: 1,
     flex: 1,
+    marginBottom: 40,
   },
   account: {
     flexDirection: 'row',
@@ -160,5 +173,8 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 12,
+  },
+  textButton: {
+    fontSize: 30,
   },
 });
