@@ -11,6 +11,7 @@ import {
 import { Camera } from 'expo-camera';
 import { Video } from 'expo-av';
 import firebase from 'firebase';
+import 'firebase/storage';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const closeButtonSize = Math.floor(WINDOW_HEIGHT * 0.032);
@@ -23,7 +24,7 @@ export default function AddPost() {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [isVideoRecording, setIsVideoRecording] = useState(false);
   const [videoSource, setVideoSource] = useState(null);
-  const [source, setSource] = useState('');
+  const [post, setPost] = useState('');
   const cameraRef = useRef();
 
   function handlePress() {
@@ -31,7 +32,7 @@ export default function AddPost() {
     const db = firebase.firestore();
     const ref = db.collection(`users/${currentUser.uid}/pictures`);
     ref.add({
-      postPicture: source,
+      postPicture: 'Hello',
     })
       .then((docRef) => {
         console.log('Created', docRef.id);
@@ -59,7 +60,14 @@ export default function AddPost() {
         await cameraRef.current.pausePreview();
         setIsPreview(true);
         console.log('picture source', source);
-        setSource(source);
+        setPost(source);
+        const split = source.split('/');
+        const reverse = split.reverse();
+        const ref = firebase.storage().ref().child(`images/${reverse}`);
+        const blob = await fetch(source).then((r) => r.blob());
+        ref.put(blob).then(() => {
+          console.log('Succeed');
+        });
       }
     }
   };

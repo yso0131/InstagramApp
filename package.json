@@ -35,6 +35,7 @@
     "react-native-screens": "~2.15.2",
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.16.0",
+    "react-native-textinput-effects": "^0.4.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "url-prop-type": "^1.2.4"

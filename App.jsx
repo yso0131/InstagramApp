@@ -7,6 +7,8 @@ import Account from './src/screens/Account';
 import AddPost from './src/screens/AddPost';
 import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import 'firebase/storage';
+
 import { firebaseConfig } from './env';
 
 const Stack = createStackNavigator();
