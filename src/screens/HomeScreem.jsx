@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexGrow: 1,
     flex: 1,
-    marginBottom: 40,
   },
   account: {
     flexDirection: 'row',

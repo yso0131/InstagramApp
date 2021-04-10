@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, View, Alert,
+  StyleSheet, View, Alert, Text,
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase';
 import Button from '../components/Button';
 
 export default function SigninScreen() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('test@example.com');
+  const [email, setEmail] = useState('test1@example.com');
   const [password, setPassword] = useState('password');
 
   useEffect(() => {
@@ -68,6 +68,12 @@ export default function SigninScreen() {
           onPress={handlePress}
         />
       </View>
+      <TouchableOpacity
+        style={styles.noAccount}
+        onPress={() => navigation.navigate('Signup')}
+      >
+        <Text>If you don't have an account</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -93,5 +99,8 @@ const styles = StyleSheet.create({
   },
   tapbar: {
     marginTop: 10,
+  },
+  noAccount: {
+    marginTop: 16,
   },
 });

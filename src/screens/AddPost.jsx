@@ -5,7 +5,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   Alert,
 } from 'react-native';
 import { Camera } from 'expo-camera';
@@ -24,13 +23,12 @@ export default function AddPost() {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [isVideoRecording, setIsVideoRecording] = useState(false);
   const [videoSource, setVideoSource] = useState(null);
-  const [post, setPost] = useState('');
   const cameraRef = useRef();
 
   function handlePress() {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
-    const ref = db.collection(`users/${currentUser.uid}/pictures`);
+    const ref = db.collection(`users/${currentUser.uid}/posts`);
     ref.add({
       postPicture: 'Hello',
     })
@@ -60,13 +58,13 @@ export default function AddPost() {
         await cameraRef.current.pausePreview();
         setIsPreview(true);
         console.log('picture source', source);
-        setPost(source);
         const split = source.split('/');
         const reverse = split.reverse();
-        const ref = firebase.storage().ref().child(`images/${reverse}`);
+        const { currentUser } = firebase.auth();
+        const ref = firebase.storage().ref().child(`images/${currentUser.uid}/${reverse}`);
         const blob = await fetch(source).then((r) => r.blob());
         ref.put(blob).then(() => {
-          console.log('Succeed');
+          console.log('done');
         });
       }
     }
@@ -163,7 +161,7 @@ export default function AddPost() {
     return <Text style={styles.text}>No access to camera</Text>;
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Camera
         ref={cameraRef}
         style={styles.container}
@@ -180,7 +178,7 @@ export default function AddPost() {
         {isPreview && renderCancelPreviewButton()}
         {!videoSource && !isPreview && renderCaptureControl()}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({

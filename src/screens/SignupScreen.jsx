@@ -18,10 +18,7 @@ export default function SignupScreen() {
       .then((userCredential) => {
         const { user } = userCredential;
         console.log(user.uid);
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Home' }],
-        });
+        navigation.navigate('CreateAccount');
       })
       .catch((error) => {
         console.log(error.code, error.message);
