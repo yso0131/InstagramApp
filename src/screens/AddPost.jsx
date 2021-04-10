@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  TextInput,
 } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Video } from 'expo-av';
@@ -23,6 +24,8 @@ export default function AddPost() {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [isVideoRecording, setIsVideoRecording] = useState(false);
   const [videoSource, setVideoSource] = useState(null);
+  const [post, setPost] = useState('');
+  const [comment, setComment] = useState('');
   const cameraRef = useRef();
 
   function handlePress() {
@@ -30,7 +33,8 @@ export default function AddPost() {
     const db = firebase.firestore();
     const ref = db.collection(`users/${currentUser.uid}/posts`);
     ref.add({
-      postPicture: 'Hello',
+      pictureUrl: post,
+      comment,
     })
       .then((docRef) => {
         console.log('Created', docRef.id);
@@ -65,6 +69,11 @@ export default function AddPost() {
         const blob = await fetch(source).then((r) => r.blob());
         ref.put(blob).then(() => {
           console.log('done');
+          ref.getDownloadURL().then((url) => {
+            setPost(url);
+          }).catch((error) => {
+            console.log(error);
+          });
         });
       }
     }
@@ -124,6 +133,18 @@ export default function AddPost() {
           Post
         </Text>
       </TouchableOpacity>
+      <View style={styles.commentposition}>
+        <TextInput
+          placeholder="comment"
+          style={styles.commenttext}
+          value={comment}
+          onChangeText={((text) => {
+            setComment(text);
+          })}
+          autoFocus
+          multiline
+        />
+      </View>
     </View>
   );
   const renderVideoPlayer = () => (
@@ -261,5 +282,16 @@ const styles = StyleSheet.create({
     height: 100,
     position: 'absolute',
     top: 500,
+  },
+  commentposition: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    position: 'absolute',
+    width: 250,
+    top: 150,
+    left: 100,
+  },
+  commenttext: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });

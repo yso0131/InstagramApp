@@ -23,7 +23,7 @@ export default function CreateAccount() {
       .then(() => {
         navigation.reset({
           index: 0,
-          routes: [{ name: 'Account' }],
+          routes: [{ name: 'Home' }],
         });
       })
       .catch((error) => {

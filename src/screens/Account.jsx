@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet, Text, View, Image, TouchableOpacity,
+  StyleSheet, Text, View, Image, TouchableOpacity, FlatList, ListItem,
 } from 'react-native';
 import firebase from 'firebase';
 import { useNavigation } from '@react-navigation/native';
-import { shape, string } from 'prop-types';
 import SignoutScreen from '../components/SignoutScreen';
 
 export default function Account() {
   const navigation = useNavigation();
   const [names, setNames] = useState([]);
+  console.log(names);
   useEffect(() => {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
@@ -21,13 +21,13 @@ export default function Account() {
         userData.push({
           id: doc.id,
           accountName: data.accountName,
+          comment: data.comment,
+          pictureUrl: data.pictureUrl,
         });
         setNames(userData);
-        console.log();
       });
     });
   }, []);
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => <SignoutScreen />,
@@ -48,6 +48,18 @@ export default function Account() {
 
   return (
     <View style={styles.container}>
+      <FlatList
+        style={styles.container}
+        data={names}
+        renderItem={({ item }) => (
+          <ListItem
+            accountName={item.accountName}
+            comment={item.comment}
+            pictureUrl={item.pictureUrl}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+      />
       {names.map((name) => (
         <View>
           <View
@@ -102,12 +114,6 @@ export default function Account() {
   );
 }
 
-Account.protoTypes = {
-  route: shape({
-    params: shape({ id: string }),
-  }).isRequired,
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -150,6 +156,7 @@ const styles = StyleSheet.create({
   },
   namePlace: {
     justifyContent: 'center',
+    marginLeft: 30,
   },
   pofile: {
     marginLeft: 10,

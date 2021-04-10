@@ -10,7 +10,6 @@ import AddPost from './src/screens/AddPost';
 import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import CreateAccount from './src/screens/CreateAccount';
-import Edit from './src/screens/Edit';
 import 'firebase/storage';
 import { firebaseConfig } from './env';
 
@@ -19,7 +18,7 @@ const Tab = createBottomTabNavigator();
 
 const HomeStack = () => (
   <Stack.Navigator
-    initialRouteName="Signin"
+    initialRouteName="Signup"
     screenOptions={{
       // headerStyle: { backgroundColor: 'papayawhip' },
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -32,7 +31,7 @@ const HomeStack = () => (
     <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Instagram' }} />
     <Stack.Screen name="AddPost" component={AddPost} options={{ title: 'Instagram' }} />
     <Stack.Screen name="CreateAccount" component={CreateAccount} options={{ title: 'Instagram' }} />
-    <Stack.Screen name="Edit" component={Edit} options={{ title: 'Instagram' }} />
+    <Stack.Screen name="Account" component={Account} options={{ title: 'Instagram' }} />
   </Stack.Navigator>
 );
 
