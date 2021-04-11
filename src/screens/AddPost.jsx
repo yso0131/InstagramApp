@@ -11,13 +11,19 @@ import {
 import { Camera } from 'expo-camera';
 import { Video } from 'expo-av';
 import firebase from 'firebase';
+import { useNavigation } from '@react-navigation/native';
 import 'firebase/storage';
+import { useSelector } from 'react-redux';
+
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const closeButtonSize = Math.floor(WINDOW_HEIGHT * 0.032);
 const captureSize = Math.floor(WINDOW_HEIGHT * 0.09);
 
 export default function AddPost() {
+  const user = useSelector(state => state.user);
+  const { ownname } = user;
+  const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [isPreview, setIsPreview] = useState(false);
@@ -34,11 +40,14 @@ export default function AddPost() {
     const ref = db.collection(`users/${currentUser.uid}/posts`);
     ref.add({
       pictureUrl: post,
+      accountName: ownname[0],
       comment,
+
     })
       .then((docRef) => {
         console.log('Created', docRef.id);
         Alert.alert('Posted');
+        navigation.navigate('Home');
       })
       .catch((error) => {
         console.log('Error', error);

@@ -12,13 +12,17 @@ import SignupScreen from './src/screens/SignupScreen';
 import CreateAccount from './src/screens/CreateAccount';
 import 'firebase/storage';
 import { firebaseConfig } from './env';
+import { Provider } from 'react-redux';
+import store, { persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => (
   <Stack.Navigator
-    initialRouteName="Signup"
+    initialRouteName="Signin"
     screenOptions={{
       // headerStyle: { backgroundColor: 'papayawhip' },
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -63,11 +67,15 @@ if (firebase.apps.length === 0) {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={screenOption}>
-        <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Account" component={AccountStack} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={screenOption}>
+            <Tab.Screen name="Home" component={HomeStack} />
+            <Tab.Screen name="Account" component={AccountStack} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }

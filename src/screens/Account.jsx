@@ -5,11 +5,14 @@ import {
 import firebase from 'firebase';
 import { useNavigation } from '@react-navigation/native';
 import SignoutScreen from '../components/SignoutScreen';
+import { useSelector } from 'react-redux';
+
 
 export default function Account() {
+  const user = useSelector(state => state.user);
+  const { ownname } = user;
   const navigation = useNavigation();
   const [names, setNames] = useState([]);
-  console.log(names);
   useEffect(() => {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
@@ -48,68 +51,53 @@ export default function Account() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.container}
-        data={names}
-        renderItem={({ item }) => (
-          <ListItem
-            accountName={item.accountName}
-            comment={item.comment}
-            pictureUrl={item.pictureUrl}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-      />
-      {names.map((name) => (
+      <View>
         <View>
-          <View
-            key={name.id}
-            style={styles.account}
-          >
-            <Text style={styles.accountPic}>
-              ●
+          <Text style={styles.accountPic}>
+            ●
+          </Text>
+          <View style={styles.namePlace}>
+            <Text style={styles.accountName}>
+              {ownname[0]}
             </Text>
-            <View style={styles.namePlace}>
-              <Text style={styles.accountName}>
-                {name.accountName}
+          </View>
+        </View>
+        <View style={styles.pofile}>
+          <Text style={styles.pofileText}>Profile</Text>
+        </View>
+        <View style={styles.accountDesc}>
+          <Text style={styles.accountDescText}>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua
+          </Text>
+        </View>
+        <View>
+          <View>
+            <Image
+              style={styles.pic}
+              source={{ uri: 'https://picsum.photos/200/300' }}
+            />
+          </View>
+          <View style={styles.content}>
+            <View style={styles.contentAccount}>
+              <Text style={styles.contentAccountText}>
+                {ownname[0]}
               </Text>
             </View>
-          </View>
-          <View style={styles.pofile}>
-            <Text style={styles.pofileText}>Profile</Text>
-          </View>
-          <View style={styles.accountDesc}>
-            <Text style={styles.accountDescText}>
-              Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua
-            </Text>
-          </View>
-          <View>
-            <View>
-              <Image
-                style={styles.pic}
-                source={{ uri: 'https://picsum.photos/200/300' }}
-              />
+            <View style={styles.post}>
+              <Text style={styles.postText}>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua
+              </Text>
             </View>
-            <View style={styles.content}>
-              <View style={styles.contentAccount}>
-                <Text style={styles.contentAccountText}>
-                  {name.accountName}
-                </Text>
-              </View>
-              <View style={styles.post}>
-                <Text style={styles.postText}>
-                  Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua
-                </Text>
-              </View>
+            <View>
               <Text style={styles.dateText}>
                 2021年3月14日
-              </Text>
+            </Text>
             </View>
           </View>
         </View>
-      ))}
+      </View>
     </View>
   );
 }

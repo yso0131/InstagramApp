@@ -9,22 +9,26 @@ import firebase from 'firebase';
 import 'firebase/storage';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button';
+import { useDispatch } from 'react-redux';
+import { createName } from '../../store/actions/user';
 
 export default function CreateAccount() {
   const navigation = useNavigation();
-  const [name, setName] = useState('');
+  const dispatch = useDispatch()
+  const [accountName, setAccountName] = useState('');
   function handlePress() {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     const ref = db.collection(`users/${currentUser.uid}/posts`);
     ref.add({
-      accountName: name,
+      noneed: accountName,
     })
       .then(() => {
         navigation.reset({
           index: 0,
           routes: [{ name: 'Home' }],
         });
+        { dispatch(createName({ ownname: accountName })) }
       })
       .catch((error) => {
         console.log('Error', error);
@@ -35,9 +39,9 @@ export default function CreateAccount() {
       <Text style={styles.containerText}>アカウントの名前を決めましょう</Text>
       <TextInput
         style={styles.accountInput}
-        value={name}
+        value={accountName}
         onChangeText={(text) => (
-          setName(text)
+          setAccountName(text)
         )}
         autoFocus
       />
